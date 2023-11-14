@@ -34,6 +34,8 @@ echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docke
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
+
+sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
 **Install Kubernetes Service**
@@ -43,6 +45,9 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 apt update
 apt install -y kubelet kubeadm kubectl
+
+sudo rm /etc/containerd/config.toml
+sudo systemctl restart containerd.service
 ```
 
 ## Konfigurasi
